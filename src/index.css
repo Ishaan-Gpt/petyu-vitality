@@ -6,15 +6,20 @@
 
 @layer base {
   :root {
-    /* Lively Pastel Palette */
-    --background: 30 50% 98%;
+    /* Warm Cream Palette - #F6EADF & #E9D6C5 */
+    --background: 28 47% 92%;
     --foreground: 240 20% 20%;
 
-    --card: 0 0% 100%;
+    --card: 28 47% 96%;
     --card-foreground: 240 20% 20%;
 
-    --popover: 0 0% 100%;
+    --popover: 28 47% 96%;
     --popover-foreground: 240 20% 20%;
+
+    /* Warm Cream - Primary background tones */
+    --cream: 28 47% 92%;
+    --cream-light: 28 50% 96%;
+    --cream-deep: 28 35% 82%;
 
     /* Soft Coral - Primary */
     --primary: 12 80% 70%;
@@ -44,29 +49,30 @@
     --sky-foreground: 200 60% 20%;
     --sky-soft: 200 70% 90%;
 
-    --muted: 30 20% 94%;
+    --muted: 28 30% 88%;
     --muted-foreground: 240 10% 45%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 30% 88%;
-    --input: 30 30% 88%;
+    --border: 28 25% 85%;
+    --input: 28 25% 85%;
     --ring: 12 80% 70%;
 
     --radius: 1rem;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(12 80% 70% / 0.15), hsl(158 50% 75% / 0.15), hsl(270 50% 78% / 0.1));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(30 50% 98%));
+    --gradient-hero: linear-gradient(135deg, hsl(28 47% 92%), hsl(28 35% 82%));
+    --gradient-card: linear-gradient(180deg, hsl(28 47% 96%), hsl(28 47% 92%));
     --gradient-primary: linear-gradient(135deg, hsl(12 80% 70%), hsl(12 70% 55%));
     --gradient-secondary: linear-gradient(135deg, hsl(158 50% 75%), hsl(158 45% 55%));
     --gradient-accent: linear-gradient(135deg, hsl(270 50% 78%), hsl(270 45% 60%));
+    --gradient-cream: linear-gradient(180deg, hsl(28 47% 96%), hsl(28 35% 82%));
 
     /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(240 20% 20% / 0.08);
-    --shadow-medium: 0 8px 30px -6px hsl(240 20% 20% / 0.12);
-    --shadow-large: 0 20px 50px -12px hsl(240 20% 20% / 0.15);
+    --shadow-soft: 0 4px 20px -4px hsl(240 20% 20% / 0.06);
+    --shadow-medium: 0 8px 30px -6px hsl(240 20% 20% / 0.1);
+    --shadow-large: 0 20px 50px -12px hsl(240 20% 20% / 0.12);
     --shadow-glow-primary: 0 8px 30px -6px hsl(12 80% 70% / 0.4);
     --shadow-glow-secondary: 0 8px 30px -6px hsl(158 50% 75% / 0.4);
 
@@ -76,16 +82,19 @@
     --font-serif: 'Playfair Display', serif;
 
     /* Trust bar background */
-    --trust-bar: 30 40% 95%;
+    --trust-bar: 28 35% 88%;
+
+    /* Navbar glass */
+    --navbar-glass: 28 47% 96% / 0.85;
 
     /* Sidebar */
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 28 47% 96%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent: 28 30% 92%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
+    --sidebar-border: 28 25% 85%;
     --sidebar-ring: 12 80% 70%;
   }
 
@@ -227,6 +236,16 @@
   .text-gradient-secondary {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-secondary);
+  }
+
+  .gradient-cream {
+    background: var(--gradient-cream);
+  }
+
+  .glass-navbar {
+    background: hsl(var(--navbar-glass));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 
   /* Organic blob shapes */
