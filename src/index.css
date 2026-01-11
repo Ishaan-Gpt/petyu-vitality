@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -73,6 +73,10 @@
     /* Typography */
     --font-display: 'Outfit', sans-serif;
     --font-body: 'Quicksand', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+
+    /* Trust bar background */
+    --trust-bar: 30 40% 95%;
 
     /* Sidebar */
     --sidebar-background: 0 0% 98%;
@@ -169,6 +173,10 @@
 
   .font-body {
     font-family: var(--font-body);
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
   }
 
   .gradient-hero {

@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         display: ['Outfit', 'sans-serif'],
         body: ['Quicksand', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
