@@ -12,9 +12,24 @@ import {
   PawPrint,
   Utensils,
   MapPin,
-  Sparkles
+  Sparkles,
+  ChevronDown,
+  Instagram,
+  Facebook,
+  MessageCircle,
+  Smile,
+  Award,
+  Beaker,
+  Package,
+  Check
 } from "lucide-react";
 import { useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Import all images
 import heroDogForest from "@/assets/hero-dog-forest.jpg";
@@ -29,6 +44,9 @@ import testimonialDog1 from "@/assets/testimonial-dog-1.jpg";
 import testimonialDog2 from "@/assets/testimonial-dog-2.jpg";
 import testimonialDog3 from "@/assets/testimonial-dog-3.jpg";
 import subscriptionDog from "@/assets/subscription-dog.jpg";
+import qualityDogProduct from "@/assets/quality-dog-product.jpg";
+import faqDog from "@/assets/faq-dog.jpg";
+import contactDog from "@/assets/contact-dog.jpg";
 
 const categories = [
   {
@@ -119,6 +137,68 @@ const testimonials = [
     product: "Joint Saver",
   },
 ];
+
+const stats = [
+  { percentage: 95, color: "primary", product: "Lucky Belly", description: "of our customers report improved digestion in their dogs after feeding with" },
+  { percentage: 81, color: "secondary", product: "Active Hips", description: "of customers say their dog's mobility has improved since taking" },
+  { percentage: 84, color: "sky", product: "Relax Time", description: "of our customers say their dog is more balanced and relaxed since taking" },
+];
+
+const qualityFeatures = [
+  { icon: Sparkles, title: "Unique Recipes", description: "For a long-term health routine", link: "/how-it-works" },
+  { icon: Beaker, title: "Scientifically Formulated", description: "For proven results", link: "/how-it-works" },
+  { icon: Package, title: "Premium Ingredients", description: "For lasting vitality", link: "/products" },
+  { icon: Heart, title: "Gently Manufactured", description: "To preserve natural nutrients", link: "/about" },
+  { icon: Smile, title: "High Acceptance", description: "For daily feeding routine", link: "/products" },
+];
+
+const faqItems = [
+  { question: "How does my subscription work?", answer: "Your subscription delivers your chosen products automatically at your preferred interval. You'll save 20% on every order and enjoy free shipping. Modify, pause, or cancel anytime from your account." },
+  { question: "Can I manage, change or adjust my subscription online?", answer: "Yes! Log into your account to change delivery frequency, swap products, update payment info, or pause your subscription with just a few clicks." },
+  { question: "I want to change the products in my subscription and also the delivery frequency. How can I do that?", answer: "Simply go to your account dashboard, select 'Manage Subscription', and you can modify products, quantities, and delivery schedule all in one place." },
+  { question: "On what date will my subscription be charged?", answer: "Your subscription renews on the same date each month (or according to your chosen frequency). You'll receive an email reminder 3 days before each charge." },
+  { question: "How can I cancel my subscription?", answer: "You can cancel anytime through your account settings - no questions asked. If you need help, our customer service team is always here for you." },
+];
+
+// Circular Progress Component
+const CircularProgress = ({ percentage, color }: { percentage: number; color: string }) => {
+  const radius = 45;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+  
+  const colorClass = color === 'primary' ? 'stroke-primary' : color === 'secondary' ? 'stroke-secondary-deep' : 'stroke-sky';
+  
+  return (
+    <div className="relative w-28 h-28">
+      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="6"
+          className="text-muted/50"
+        />
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="none"
+          strokeWidth="6"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          className={colorClass}
+          style={{ transition: 'stroke-dashoffset 1s ease-out' }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-2xl font-display font-bold">{percentage}%</span>
+      </div>
+    </div>
+  );
+};
 
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -439,6 +519,103 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Statistics Section - Inspired by Reference */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4">
+              <span className="font-display font-bold">Experience the Long-Term </span>
+              <span className="font-serif italic">Benefits of PetYu</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              After 3 months, over 80% of our customers report visible improvements in their dogs*
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Product Display */}
+            <div className="relative flex justify-center items-end gap-4">
+              <div className="relative">
+                {/* Quality Badge */}
+                <div className="absolute -top-4 right-0 z-10 bg-sunny rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                  <Award className="w-8 h-8 text-sunny-foreground" />
+                </div>
+                <img 
+                  src={qualityDogProduct} 
+                  alt="PetYu Products" 
+                  className="rounded-3xl shadow-large max-w-md w-full"
+                />
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="space-y-8">
+              {stats.map((stat, index) => (
+                <div key={stat.product} className="flex items-center gap-6">
+                  <CircularProgress percentage={stat.percentage} color={stat.color} />
+                  <div className="flex-1">
+                    <p className="text-foreground">
+                      {stat.description} <span className="font-bold">{stat.product}</span>.
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-center text-sm text-muted-foreground mt-12">
+            *The stated results are based on a customer survey (06-07/2024) and reflect individual experiences with PetYu products (n = 466).
+          </p>
+        </div>
+      </section>
+
+      {/* Premium Quality Section - Inspired by Reference */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Image */}
+            <div className="order-2 lg:order-1">
+              <img 
+                src={qualityDogProduct} 
+                alt="Happy dog with PetYu supplement" 
+                className="rounded-3xl shadow-large w-full max-w-lg mx-auto"
+              />
+            </div>
+
+            {/* Content */}
+            <div className="order-1 lg:order-2">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4">
+                <span className="font-display font-bold">Absolute Premium Quality </span>
+                <span className="font-serif italic block">for a Healthy Pet Life</span>
+              </h2>
+              <p className="text-muted-foreground mb-10">
+                Our high-quality supplements meet the highest standards:
+              </p>
+
+              <div className="space-y-6">
+                {qualityFeatures.map((feature) => (
+                  <div key={feature.title} className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <feature.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-display font-bold text-lg">{feature.title}</h4>
+                      <p className="text-muted-foreground text-sm">{feature.description}</p>
+                      <Link 
+                        to={feature.link} 
+                        className="text-primary text-sm font-medium inline-flex items-center gap-1 mt-1 hover:gap-2 transition-all"
+                      >
+                        Learn more <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Subscription CTA with Dog */}
       <section className="py-0 relative">
         <div className="grid lg:grid-cols-2">
@@ -555,52 +732,109 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-muted/30">
+      {/* FAQ Section - Inspired by Reference */}
+      <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl mb-4">
-              <span className="font-display font-bold">Why Pet Owners </span>
-              <span className="font-serif italic">Choose PetYu</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              We're committed to providing the highest quality supplements for your beloved companions
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Leaf,
-                title: "100% Natural",
-                description: "Only the finest natural ingredients, no artificial additives or preservatives",
-              },
-              {
-                icon: Shield,
-                title: "Vet Approved",
-                description: "Developed in collaboration with veterinary experts for optimal pet health",
-              },
-              {
-                icon: Heart,
-                title: "Made with Love",
-                description: "Crafted with passion for pets and their well-being in European facilities",
-              },
-            ].map((feature, index) => (
-              <div
-                key={feature.title}
-                className="bg-card rounded-3xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-2 text-center"
-              >
-                <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center mb-6 mx-auto">
-                  <feature.icon className="w-8 h-8 text-primary-foreground" />
-                </div>
-                <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground">
-                  {feature.description}
-                </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Image & Title */}
+            <div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4">
+                <span className="font-serif italic">Need Help? </span>
+                <span className="font-display font-bold block">We're Here for You & Your Pets.</span>
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                For more information and support, visit our{" "}
+                <Link to="/contact" className="text-primary underline hover:no-underline">
+                  Help Center
+                </Link>.
+              </p>
+              
+              <div className="relative max-w-sm">
+                <img 
+                  src={faqDog} 
+                  alt="Happy dog" 
+                  className="rounded-3xl shadow-medium"
+                />
               </div>
-            ))}
+            </div>
+
+            {/* Right: FAQ Accordion */}
+            <div>
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqItems.map((item, index) => (
+                  <AccordionItem 
+                    key={index} 
+                    value={`item-${index}`}
+                    className="bg-card rounded-xl px-6 border-0 shadow-soft"
+                  >
+                    <AccordionTrigger className="text-left font-display font-semibold hover:no-underline py-5">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Contact Section - Inspired by Reference */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Content */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl">
+                  <span className="font-display font-bold">Let's Talk </span>
+                </h2>
+                <div className="w-12 h-12 rounded-full border-2 border-foreground flex items-center justify-center">
+                  <Smile className="w-6 h-6" />
+                </div>
+              </div>
+              
+              <p className="text-muted-foreground mb-8 max-w-md">
+                Questions, feedback or suggestions? Visit our "Quick Help" or call us directly - 
+                we're always here for you and your furry friend.
+              </p>
+
+              <Button variant="hero" size="lg" asChild className="mb-10">
+                <Link to="/contact">
+                  QUICK HELP
+                </Link>
+              </Button>
+
+              {/* Social Icons */}
+              <div className="grid grid-cols-4 gap-4 max-w-md">
+                {[
+                  { icon: Instagram, label: "INSTAGRAM" },
+                  { icon: MessageCircle, label: "WHATSAPP" },
+                  { icon: PawPrint, label: "TIKTOK" },
+                  { icon: Facebook, label: "FACEBOOK" },
+                ].map((social) => (
+                  <a 
+                    key={social.label}
+                    href="#" 
+                    className="bg-muted rounded-2xl p-6 flex flex-col items-center gap-3 hover:bg-muted/70 transition-colors group"
+                  >
+                    <social.icon className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <span className="text-xs font-semibold text-muted-foreground">{social.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Image */}
+            <div className="relative">
+              <img 
+                src={contactDog} 
+                alt="Dog with PetYu product" 
+                className="rounded-3xl shadow-large w-full max-w-lg ml-auto"
+              />
+            </div>
           </div>
         </div>
       </section>
