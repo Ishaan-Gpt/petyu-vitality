@@ -663,71 +663,76 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl md:text-4xl">
-              <span className="font-display font-bold">Selected </span>
-              <span className="font-serif italic">Reviews</span>
+      {/* Testimonials Section - Enhanced */}
+      <section className="py-24 bg-cream-deep relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-secondary/10 blur-3xl" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-14">
+            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
+              ⭐ 7,200+ Happy Pet Parents
+            </span>
+            <h2 className="text-3xl md:text-5xl mb-4">
+              <span className="font-display font-bold">What Our </span>
+              <span className="font-serif italic">Customers Say</span>
             </h2>
-            <div className="flex gap-2">
-              <button 
-                onClick={prevTestimonial}
-                className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={nextTestimonial}
-                className="w-12 h-12 rounded-full border-2 border-foreground flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+              Real stories from pet parents who've seen the difference PetYu makes.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.name}
-                className="bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300"
+                className="bg-cream-light rounded-3xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 group"
               >
-                {/* Pet Image */}
-                <div className="aspect-[4/3] overflow-hidden">
+                {/* Pet Image with overlay */}
+                <div className="aspect-[4/3] overflow-hidden relative">
                   <img
                     src={testimonial.image}
                     alt={`${testimonial.name}'s pet`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+                  {/* Rating badge */}
+                  <div className="absolute bottom-4 left-4 flex gap-1 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-sunny text-sunny" />
+                    ))}
+                  </div>
                 </div>
                 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex gap-1 mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-sunny text-sunny" />
-                    ))}
-                  </div>
+                <div className="p-8">
+                  <h3 className="font-display font-bold text-xl mb-3">{testimonial.title}</h3>
+                  <p className="text-muted-foreground mb-6 line-clamp-4 leading-relaxed">{testimonial.text}</p>
                   
-                  <h3 className="font-display font-bold text-lg mb-2">{testimonial.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-4">{testimonial.text}</p>
-                  
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  
-                  {/* Product tag */}
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm text-muted-foreground">Product:</span>
-                      <div className="flex items-center gap-2">
-                        <img src={productJointSaver} alt="" className="w-8 h-8 rounded object-cover" />
-                        <span className="text-sm font-medium">{testimonial.product}</span>
-                      </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div>
+                      <p className="font-semibold text-foreground">{testimonial.name}</p>
+                      <p className="text-sm text-muted-foreground">Verified Buyer</p>
+                    </div>
+                    <div className="flex items-center gap-2 bg-primary/10 rounded-full px-3 py-1.5">
+                      <img src={productJointSaver} alt="" className="w-6 h-6 rounded-full object-cover" />
+                      <span className="text-xs font-medium text-primary">{testimonial.product}</span>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* View all reviews button */}
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" asChild className="rounded-full border-2 border-foreground hover:bg-foreground hover:text-background">
+              <Link to="/products">
+                Read All Reviews
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -781,83 +786,135 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Social Contact Section - Inspired by Reference */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Contact Section - Premium Design */}
+      <section className="py-24 bg-cream relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-5">
+          {[...Array(12)].map((_, i) => (
+            <PawPrint 
+              key={i} 
+              className="absolute text-foreground w-16 h-16" 
+              style={{ 
+                left: `${(i * 23) % 100}%`, 
+                top: `${(i * 31) % 100}%`,
+                transform: `rotate(${i * 30}deg)`
+              }} 
+            />
+          ))}
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left: Content */}
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl">
-                  <span className="font-display font-bold">Let's Talk </span>
-                </h2>
-                <div className="w-12 h-12 rounded-full border-2 border-foreground flex items-center justify-center">
-                  <Smile className="w-6 h-6" />
-                </div>
-              </div>
+              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
+                💬 We're Here to Help
+              </span>
+              <h2 className="text-3xl md:text-5xl mb-6">
+                <span className="font-display font-bold">Let's Talk </span>
+                <span className="font-serif italic block mt-2">About Your Pet's Health</span>
+              </h2>
               
-              <p className="text-muted-foreground mb-8 max-w-md">
+              <p className="text-muted-foreground text-lg mb-8 max-w-md leading-relaxed">
                 Questions, feedback or suggestions? Visit our "Quick Help" or call us directly - 
                 we're always here for you and your furry friend.
               </p>
 
-              <Button variant="hero" size="lg" asChild className="mb-10">
-                <Link to="/contact">
-                  QUICK HELP
-                </Link>
-              </Button>
-
-              {/* Social Icons */}
-              <div className="grid grid-cols-4 gap-4 max-w-md">
-                {[
-                  { icon: Instagram, label: "INSTAGRAM" },
-                  { icon: MessageCircle, label: "WHATSAPP" },
-                  { icon: PawPrint, label: "TIKTOK" },
-                  { icon: Facebook, label: "FACEBOOK" },
-                ].map((social) => (
-                  <a 
-                    key={social.label}
-                    href="#" 
-                    className="bg-muted rounded-2xl p-6 flex flex-col items-center gap-3 hover:bg-muted/70 transition-colors group"
-                  >
-                    <social.icon className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors" />
-                    <span className="text-xs font-semibold text-muted-foreground">{social.label}</span>
+              <div className="flex flex-wrap gap-4 mb-12">
+                <Button variant="hero" size="lg" asChild className="rounded-full shadow-glow-primary">
+                  <Link to="/contact">
+                    Quick Help
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild className="rounded-full border-2 border-foreground hover:bg-foreground hover:text-background">
+                  <a href="tel:+49123456789">
+                    Call Us
                   </a>
-                ))}
+                </Button>
+              </div>
+
+              {/* Social Icons - Enhanced */}
+              <div>
+                <p className="text-sm font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Follow us on social media</p>
+                <div className="grid grid-cols-4 gap-4 max-w-md">
+                  {[
+                    { icon: Instagram, label: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500" },
+                    { icon: MessageCircle, label: "WhatsApp", color: "hover:bg-green-500" },
+                    { icon: PawPrint, label: "TikTok", color: "hover:bg-foreground" },
+                    { icon: Facebook, label: "Facebook", color: "hover:bg-blue-600" },
+                  ].map((social) => (
+                    <a 
+                      key={social.label}
+                      href="#" 
+                      className={`bg-cream-light rounded-2xl p-5 flex flex-col items-center gap-3 transition-all duration-300 group shadow-soft hover:shadow-medium hover:scale-105 ${social.color}`}
+                    >
+                      <social.icon className="w-7 h-7 text-foreground group-hover:text-white transition-colors" />
+                      <span className="text-[10px] font-bold text-muted-foreground group-hover:text-white uppercase tracking-wider transition-colors">{social.label}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Right: Image */}
+            {/* Right: Image with decorative frame */}
             <div className="relative">
-              <img 
-                src={contactDog} 
-                alt="Dog with PetYu product" 
-                className="rounded-3xl shadow-large w-full max-w-lg ml-auto"
-              />
+              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-[2.5rem] blur-sm" />
+              <div className="relative">
+                <img 
+                  src={contactDog} 
+                  alt="Dog with PetYu product" 
+                  className="rounded-3xl shadow-large w-full object-cover aspect-[4/5]"
+                />
+                {/* Floating card */}
+                <div className="absolute -bottom-6 -left-6 bg-cream-light rounded-2xl p-6 shadow-large max-w-[200px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Heart className="w-5 h-5 text-primary fill-primary" />
+                    <span className="font-bold">26,000+</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Happy pets across Europe</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-br from-secondary-soft via-background to-accent-soft">
+      <section className="py-24 relative overflow-hidden bg-gradient-to-br from-cream via-cream-light to-cream-deep">
+        <div className="absolute inset-0 opacity-5">
+          {[...Array(8)].map((_, i) => (
+            <PawPrint 
+              key={i} 
+              className="absolute text-primary w-20 h-20" 
+              style={{ 
+                left: `${(i * 25) % 100}%`, 
+                top: `${(i * 35) % 100}%`,
+                transform: `rotate(${i * 45}deg)`
+              }} 
+            />
+          ))}
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
+            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
+              🐾 Start Today
+            </span>
             <h2 className="text-3xl md:text-5xl mb-6">
               <span className="font-display font-bold">Ready to Transform </span>
-              <span className="font-serif italic block">Your Pet's Health?</span>
+              <span className="font-serif italic block mt-2">Your Pet's Health?</span>
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-xl text-muted-foreground mb-10 max-w-xl mx-auto">
               Start your pet's wellness journey today with PetYu's premium natural supplements.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" asChild>
+              <Button variant="hero" size="xl" asChild className="rounded-full shadow-glow-primary">
                 <Link to="/products">
                   Shop Now
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
-              <Button variant="outline" size="xl" asChild>
+              <Button variant="outline" size="xl" asChild className="rounded-full border-2 border-foreground hover:bg-foreground hover:text-background">
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
