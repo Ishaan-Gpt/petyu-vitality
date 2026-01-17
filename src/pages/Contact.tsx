@@ -34,167 +34,144 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Form submitted:", formData);
   };
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-24 gradient-hero relative overflow-hidden">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-primary-soft rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-20 left-0 w-80 h-80 bg-secondary-soft rounded-full blur-3xl opacity-50" />
-        
+      {/* Editorial Header */}
+      <section className="pt-40 pb-24 bg-cream text-center relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-primary-soft text-primary-deep rounded-full text-sm font-semibold mb-6">
-              Contact Us
-            </span>
-            <h1 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Get in
-              <span className="block text-primary">Touch</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have questions about our products or need personalized advice for your pet? We're here to help!
-            </p>
-          </div>
+          <span className="text-primary font-bold tracking-[0.4em] text-xs uppercase mb-8 block">REACH OUT TO US</span>
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-foreground leading-[0.9] tracking-tighter mb-12">
+            LET'S <br /><span className="italic">CONNECT</span>
+          </h1>
+          <p className="text-xl text-foreground/60 max-w-xl mx-auto font-body">
+            We’re here to provide personalized guidance for your pet’s vitality journey.
+          </p>
         </div>
+        {/* Decorative background element */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-cream-deep/20 -skew-x-12 translate-x-1/2" />
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-16">
+      {/* Main Content - Minimalist Grid */}
+      <section className="py-32 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 -mt-32 relative z-20">
-            {contactInfo.map((info) => (
-              <div
-                key={info.title}
-                className="bg-card rounded-3xl p-8 shadow-large text-center"
-              >
-                <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-4">
-                  <info.icon className="w-8 h-8 text-primary-foreground" />
+          <div className="grid lg:grid-cols-2 gap-24 items-start">
+            {/* Contact Information - Column 1 */}
+            <div className="space-y-16">
+              <div className="space-y-12">
+                <h2 className="text-5xl font-serif italic mb-8">Direct Lines</h2>
+                <div className="grid gap-12">
+                  {contactInfo.map((info) => (
+                    <div key={info.title} className="flex items-start gap-8 group cursor-pointer">
+                      <div className="w-14 h-14 rounded-full bg-cream flex items-center justify-center border border-border group-hover:bg-primary group-hover:border-primary transition-all">
+                        <info.icon className="w-6 h-6 group-hover:text-white" />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="text-sm font-bold tracking-widest text-foreground/40 uppercase">{info.title}</h3>
+                        <p className="text-2xl font-serif text-foreground">{info.details}</p>
+                        <p className="text-sm text-foreground/50">{info.description}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <h3 className="font-display text-xl font-bold text-foreground mb-2">
-                  {info.title}
-                </h3>
-                <p className="text-primary font-semibold mb-1">{info.details}</p>
-                <p className="text-muted-foreground text-sm">{info.description}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Contact Form */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-                Send Us a Message
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Fill out the form below and our team will get back to you as soon as possible. We're always happy to help with questions about pet nutrition and health.
-              </p>
-              
-              <div className="space-y-6">
-                <div className="flex items-start gap-4 p-4 bg-muted rounded-2xl">
-                  <MessageCircle className="w-6 h-6 text-primary mt-1" />
-                  <div>
-                    <h4 className="font-display font-bold text-foreground">Product Questions</h4>
-                    <p className="text-muted-foreground text-sm">
-                      Need help choosing the right supplement for your pet?
-                    </p>
+              {/* Operational Hours */}
+              <div className="p-10 bg-cream rounded-[2.5rem] border border-border/20 space-y-6">
+                <h3 className="text-2xl font-serif">Concierge Hours</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between border-b border-border/10 pb-2">
+                    <span className="text-sm font-bold uppercase tracking-widest text-foreground/40">Monday — Friday</span>
+                    <span className="text-sm">09:00 — 18:00</span>
                   </div>
-                </div>
-                <div className="flex items-start gap-4 p-4 bg-muted rounded-2xl">
-                  <Clock className="w-6 h-6 text-secondary-deep mt-1" />
-                  <div>
-                    <h4 className="font-display font-bold text-foreground">Response Time</h4>
-                    <p className="text-muted-foreground text-sm">
-                      We typically respond within 24 business hours.
-                    </p>
+                  <div className="flex justify-between border-b border-border/10 pb-2">
+                    <span className="text-sm font-bold uppercase tracking-widest text-foreground/40">Saturday</span>
+                    <span className="text-sm">10:00 — 14:00</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-bold uppercase tracking-widest text-foreground/40">Sunday</span>
+                    <span className="text-sm italic text-primary">Closed</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-8 shadow-large">
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-foreground font-medium mb-2">Your Name</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="John Doe"
-                    required
-                  />
+            {/* Elegant Contact Form - Column 2 */}
+            <div className="bg-white p-12 lg:p-16 rounded-[3rem] shadow-large border border-border/10">
+              <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="space-y-2">
+                  <h2 className="text-4xl font-serif mb-2">Write to us</h2>
+                  <p className="text-foreground/50 text-sm">Please allow up to 24 hours for our specialists to respond.</p>
                 </div>
-                <div>
-                  <label className="block text-foreground font-medium mb-2">Email Address</label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="john@example.com"
-                    required
-                  />
+
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Your Name</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Marie Dubois"
+                      className="w-full bg-cream/30 border-b-2 border-border/20 px-4 py-4 focus:outline-none focus:border-primary transition-colors font-body"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Email Address</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="e.g. marie@paris.com"
+                      className="w-full bg-cream/30 border-b-2 border-border/20 px-4 py-4 focus:outline-none focus:border-primary transition-colors font-body"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-foreground font-medium mb-2">Subject</label>
-                  <input
-                    type="text"
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Reason for Inquiry</label>
+                  <select
+                    className="w-full bg-cream/30 border-b-2 border-border/20 px-4 py-4 focus:outline-none focus:border-primary transition-colors font-body appearance-none"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="How can we help?"
-                    required
-                  />
+                  >
+                    <option value="">Select an option</option>
+                    <option value="Product Advice">Product Advice</option>
+                    <option value="Order Support">Order Support</option>
+                    <option value="Partnership">Partnerships</option>
+                    <option value="General Inquiry">General Inquiry</option>
+                  </select>
                 </div>
-                <div>
-                  <label className="block text-foreground font-medium mb-2">Message</label>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Your Message</label>
                   <textarea
+                    required
+                    rows={6}
+                    placeholder="How can our veterinary experts help you today?"
+                    className="w-full bg-cream/30 border-b-2 border-border/20 px-4 py-4 focus:outline-none focus:border-primary transition-colors font-body resize-none"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[150px] resize-none"
-                    placeholder="Tell us about your pet and how we can help..."
-                    required
                   />
                 </div>
-                <Button type="submit" variant="hero" size="xl" className="w-full">
-                  <Send className="w-5 h-5" />
-                  Send Message
+
+                <Button size="xl" className="w-full rounded-full bg-foreground text-background hover:bg-primary transition-all duration-500 py-8 text-lg font-medium shadow-xl">
+                  SEND INQUIRY
                 </Button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Teaser */}
-      <section className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Find quick answers to common questions about our products and services.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
-            {[
-              { q: "How long until I see results?", a: "Most pets show improvement within 2-4 weeks of regular use." },
-              { q: "Are your products safe for all pets?", a: "Our products are formulated for dogs and cats. Always consult your vet for specific concerns." },
-              { q: "Do you offer international shipping?", a: "Yes, we ship throughout Europe with free shipping on orders over €50." },
-              { q: "What's your return policy?", a: "We offer a 30-day satisfaction guarantee on all products." },
-            ].map((faq) => (
-              <div key={faq.q} className="bg-card rounded-2xl p-6 shadow-soft">
-                <h4 className="font-display font-bold text-foreground mb-2">{faq.q}</h4>
-                <p className="text-muted-foreground text-sm">{faq.a}</p>
-              </div>
-            ))}
-          </div>
+      {/* Footer Branding */}
+      <section className="py-24 bg-cream text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-serif italic mb-4">Elegance in every drop.</h2>
+          <p className="text-foreground/40 tracking-[0.3em] uppercase text-xs font-bold">PetYu Concierge Service</p>
         </div>
       </section>
     </Layout>

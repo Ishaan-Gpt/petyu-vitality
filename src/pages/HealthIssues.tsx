@@ -1,36 +1,36 @@
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Bone, Activity, Smile, ArrowRight } from "lucide-react";
+import { Bone, Activity, Smile, ArrowRight, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+// Import images for visual interest
+import categoryGeneralHealth from "@/assets/category-general-health.jpg";
+import categoryDigestion from "@/assets/category-digestion.jpg";
+import categoryOralCare from "@/assets/category-oral-care.jpg";
 
 const healthCategories = [
   {
     title: "Joints & Bones",
     description: "Support your pet's mobility and joint health with our scientifically formulated supplements. Ideal for aging pets, active breeds, or those recovering from injury.",
     icon: Bone,
-    color: "bg-primary-soft",
-    iconColor: "text-primary",
-    gradient: "gradient-primary",
+    image: categoryGeneralHealth,
     path: "/health/joints-bones",
-    benefits: ["Improved mobility", "Reduced stiffness", "Cartilage support", "Pain relief"],
+    benefits: ["Improved mobility", "Reduced stiffness", "Cartilage support", "Natural Relief"],
   },
   {
-    title: "Stomach & Intestines",
-    description: "Gentle digestive care for pets with sensitive stomachs. Our formulas support gut health, improve nutrient absorption, and promote overall digestive wellness.",
+    title: "Digestive Wellness",
+    description: "Gentle care for pets with sensitive stomachs. Our formulas support gut health, improve nutrient absorption, and promote overall digestive balance.",
     icon: Activity,
-    color: "bg-secondary-soft",
-    iconColor: "text-secondary-deep",
-    gradient: "gradient-secondary",
+    image: categoryDigestion,
     path: "/health/stomach-intestines",
-    benefits: ["Better digestion", "Reduced bloating", "Healthy gut flora", "Nutrient absorption"],
+    benefits: ["Better digestion", "Reduced bloating", "Healthy gut flora", "Absorption Boost"],
   },
   {
     title: "Oral Care",
-    description: "Maintain your pet's dental health naturally. Our oral care products fight plaque, freshen breath, and support healthy gums for a happier, healthier smile.",
+    description: "Maintain your pet's dental health naturally. Our oral care products fight plaque, freshen breath, and support healthy gums for a happier smile.",
     icon: Smile,
-    color: "bg-accent-soft",
-    iconColor: "text-accent-deep",
-    gradient: "gradient-accent",
+    image: categoryOralCare,
     path: "/health/oral-care",
     benefits: ["Fresh breath", "Plaque reduction", "Healthy gums", "Clean teeth"],
   },
@@ -39,68 +39,75 @@ const healthCategories = [
 const HealthIssues = () => {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-24 gradient-hero relative overflow-hidden">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-primary-soft rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-20 left-0 w-80 h-80 bg-secondary-soft rounded-full blur-3xl opacity-50" />
-        
+      {/* Editorial Header */}
+      <section className="pt-40 pb-24 bg-cream text-center relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-primary-soft text-primary-deep rounded-full text-sm font-semibold mb-6">
-              Health Solutions
-            </span>
-            <h1 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Targeted Care for
-              <span className="block text-primary">Every Need</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Address specific health concerns with our specialized, veterinary-approved formulas designed for optimal pet wellness.
-            </p>
-          </div>
+          <span className="text-primary font-bold tracking-[0.4em] text-xs uppercase mb-8 block">CURATED SOLUTIONS</span>
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-foreground leading-[0.9] tracking-tighter mb-12">
+            HEALTH <br /><span className="italic">RANGES</span>
+          </h1>
+          <p className="text-xl text-foreground/60 max-w-xl mx-auto font-body">
+            Precision-formulated supplements designed to address the specific needs of your cherished companions.
+          </p>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-24">
+      {/* Targeted Solutions Grid */}
+      <section className="py-32 bg-background">
         <div className="container mx-auto px-4">
-          <div className="space-y-16">
+          <div className="space-y-40">
             {healthCategories.map((category, index) => (
               <div
                 key={category.title}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
+                className={cn(
+                  "grid lg:grid-cols-2 gap-24 items-center",
                   index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
+                )}
               >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className={`w-16 h-16 rounded-2xl ${category.color} flex items-center justify-center mb-6`}>
-                    <category.icon className={`w-8 h-8 ${category.iconColor}`} />
+                {/* Text Content */}
+                <div className={cn("space-y-12", index % 2 === 1 ? "lg:order-2" : "")}>
+                  <div className="space-y-6">
+                    <div className="w-12 h-12 rounded-full bg-cream flex items-center justify-center">
+                      <category.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h2 className="text-5xl md:text-7xl font-serif leading-tight">
+                      {category.title.split(' ')[0]} <br />
+                      <span className="italic">{category.title.split(' ').slice(1).join(' ')}</span>
+                    </h2>
+                    <p className="text-xl text-foreground/70 leading-relaxed font-body">
+                      {category.description}
+                    </p>
                   </div>
-                  <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-                    {category.title}
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    {category.description}
-                  </p>
-                  <div className="grid grid-cols-2 gap-3 mb-8">
+
+                  {/* Benefits Bento-style */}
+                  <div className="grid grid-cols-2 gap-4">
                     {category.benefits.map((benefit) => (
-                      <div
-                        key={benefit}
-                        className={`${category.color} rounded-xl px-4 py-2 text-sm font-medium text-foreground`}
-                      >
-                        ✓ {benefit}
+                      <div key={benefit} className="p-4 bg-cream/30 rounded-2xl border border-border/10 flex items-center gap-3">
+                        <Sparkles className="w-4 h-4 text-primary opacity-50" />
+                        <span className="text-sm font-bold uppercase tracking-widest text-foreground/60">{benefit}</span>
                       </div>
                     ))}
                   </div>
-                  <Button variant="hero" size="lg" asChild>
+
+                  <Button size="xl" className="rounded-full bg-foreground text-background hover:bg-primary transition-all group" asChild>
                     <Link to={category.path}>
-                      Explore Solutions
-                      <ArrowRight className="w-5 h-5" />
+                      EXPLORE RANGE <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
                     </Link>
                   </Button>
                 </div>
-                <div className={`${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <div className={`${category.color} rounded-3xl p-12 aspect-square flex items-center justify-center`}>
-                    <category.icon className={`w-48 h-48 ${category.iconColor} opacity-30`} />
+
+                {/* Image Side */}
+                <div className={cn("relative", index % 2 === 1 ? "lg:order-1" : "")}>
+                  <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-large border-8 border-cream">
+                    <img src={category.image} alt={category.title} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+                  </div>
+                  {/* Decorative floating badge */}
+                  <div className={cn(
+                    "absolute -bottom-8 bg-white p-8 rounded-[2rem] shadow-xl border border-border/10 max-w-[240px] animate-float",
+                    index % 2 === 1 ? "-right-8" : "-left-8"
+                  )}>
+                    <p className="text-sm font-serif italic text-foreground/60 mb-2">Developed with</p>
+                    <p className="text-lg font-bold leading-tight">VETERINARY PRECISION</p>
                   </div>
                 </div>
               </div>
@@ -109,21 +116,20 @@ const HealthIssues = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-            Not Sure Which Product is Right?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Contact us for personalized recommendations based on your pet's specific needs.
-          </p>
-          <Button variant="hero" size="xl" asChild>
-            <Link to="/contact">
-              Get in Touch
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
+      {/* Footer CTA */}
+      <section className="py-40 bg-cream text-center border-t border-border/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto space-y-12">
+            <h2 className="text-5xl md:text-7xl font-serif italic leading-tight">Need a tailored <br />recommendation?</h2>
+            <div className="flex flex-col items-center gap-6">
+              <Button size="xl" className="rounded-full px-16 bg-primary hover:bg-primary-deep text-white shadow-xl group" asChild>
+                <Link to="/contact">
+                  TALK TO AN EXPERT <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+                </Link>
+              </Button>
+              <p className="text-foreground/40 text-xs font-bold uppercase tracking-[0.3em]">Direct Veterinary Consultations Available</p>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>

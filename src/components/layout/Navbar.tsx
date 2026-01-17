@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ShoppingBag, Search } from "lucide-react";
+import { Home, Menu, X, ChevronDown, ShoppingBag, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -10,11 +10,22 @@ const healthSubMenu = [
   { name: "Oral Care", path: "/health/oral-care" },
 ];
 
+const homeSubMenu = [
+  { name: "Editorial Style", path: "/" },
+  { name: "Lively Pastel", path: "/home2" },
+  { name: "Perfect Version", path: "/home3" },
+];
+
 const navItems = [
-  { name: "Home", path: "/" },
+  {
+    name: "Home",
+    path: "/",
+    icon: Home,
+    subMenu: homeSubMenu
+  },
   { name: "About Us", path: "/about" },
-  { 
-    name: "Health Issues", 
+  {
+    name: "Health Issues",
     path: "/health",
     subMenu: healthSubMenu
   },
@@ -26,7 +37,7 @@ const navItems = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [healthOpen, setHealthOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -39,102 +50,80 @@ export const Navbar = () => {
   }, []);
 
   const isActive = (path: string) => location.pathname === path;
-  const isHealthActive = () => location.pathname.startsWith("/health");
 
   return (
-    <nav 
+    <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled 
-          ? "glass-navbar shadow-soft py-2" 
-          : "bg-transparent py-4"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-700",
+        scrolled
+          ? "bg-white/80 backdrop-blur-xl border-b border-border/10 py-4"
+          : "bg-transparent py-8"
       )}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className={cn(
-              "w-12 h-12 rounded-2xl gradient-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-105",
-              scrolled ? "shadow-soft" : "shadow-medium"
-            )}>
-              <span className="text-primary-foreground font-display font-bold text-2xl">P</span>
-            </div>
+          <Link to="/" className="flex items-center gap-2 group relative z-10">
             <span className={cn(
-              "font-display font-bold text-2xl transition-colors duration-300",
-              scrolled ? "text-foreground" : "text-white"
+              "font-serif text-3xl md:text-4xl tracking-tighter transition-colors duration-500",
+              "text-foreground"
             )}>
-              Pet<span className="text-primary">Yu</span>
+              Pet<span className="italic text-primary">Yu</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {navItems.map((item) => (
-              <div key={item.name} className="relative group">
+              <div
+                key={item.name}
+                className="relative group"
+                onMouseEnter={() => item.subMenu && setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
                 {item.subMenu ? (
                   <button
                     className={cn(
-                      "flex items-center gap-1 px-4 py-2.5 rounded-full font-medium transition-all duration-300",
-                      scrolled 
-                        ? isHealthActive()
-                          ? "text-primary bg-primary/10"
-                          : "text-foreground hover:text-primary hover:bg-primary/5"
-                        : isHealthActive()
-                          ? "text-white bg-white/20"
-                          : "text-white/90 hover:text-white hover:bg-white/10"
+                      "text-[10px] font-bold tracking-[0.3em] uppercase transition-all duration-500 hover:text-primary flex items-center gap-1.5",
+                      scrolled ? "text-foreground/60" : "text-foreground/80"
                     )}
-                    onMouseEnter={() => setHealthOpen(true)}
-                    onMouseLeave={() => setHealthOpen(false)}
                   >
-                    {item.name}
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    {item.icon ? (
+                      <item.icon className="w-4 h-4" />
+                    ) : (
+                      item.name
+                    )}
+                    <ChevronDown className="w-3 h-3 opacity-30 group-hover:rotate-180 transition-transform" />
                   </button>
                 ) : (
                   <Link
                     to={item.path}
                     className={cn(
-                      "px-4 py-2.5 rounded-full font-medium transition-all duration-300",
-                      scrolled
-                        ? isActive(item.path)
-                          ? "text-primary bg-primary/10"
-                          : "text-foreground hover:text-primary hover:bg-primary/5"
-                        : isActive(item.path)
-                          ? "text-white bg-white/20"
-                          : "text-white/90 hover:text-white hover:bg-white/10"
+                      "text-[10px] font-bold tracking-[0.3em] uppercase transition-all duration-500 hover:text-primary relative",
+                      scrolled ? "text-foreground/60" : "text-foreground/80",
+                      isActive(item.path) && "text-primary after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full"
                     )}
                   >
                     {item.name}
                   </Link>
                 )}
 
-                {/* Dropdown Menu */}
+                {/* Dropdown */}
                 {item.subMenu && (
                   <div
                     className={cn(
-                      "absolute top-full left-0 mt-2 w-64 glass-navbar rounded-2xl shadow-large border border-border/50 overflow-hidden transition-all duration-300",
-                      healthOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
+                      "absolute top-full left-1/2 -translate-x-1/2 mt-6 w-56 bg-white rounded-3xl shadow-large border border-border/10 overflow-hidden transition-all duration-500",
+                      activeDropdown === item.name ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"
                     )}
-                    onMouseEnter={() => setHealthOpen(true)}
-                    onMouseLeave={() => setHealthOpen(false)}
                   >
-                    <div className="p-3">
-                      <Link
-                        to="/health"
-                        className="block px-4 py-3 rounded-xl font-medium text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
-                      >
-                        All Health Issues
-                      </Link>
-                      <div className="h-px bg-border my-2" />
+                    <div className="p-4 space-y-1">
                       {item.subMenu.map((subItem) => (
                         <Link
                           key={subItem.name}
                           to={subItem.path}
                           className={cn(
-                            "block px-4 py-3 rounded-xl font-medium transition-colors",
-                            isActive(subItem.path)
-                              ? "text-primary bg-primary/10"
-                              : "text-foreground hover:bg-primary/10 hover:text-primary"
+                            "block px-4 py-3 rounded-2xl text-[10px] font-bold tracking-widest uppercase hover:bg-cream transition-colors",
+                            isActive(subItem.path) ? "text-primary" : "text-foreground/60"
                           )}
                         >
                           {subItem.name}
@@ -148,47 +137,26 @@ export const Navbar = () => {
           </div>
 
           {/* Right Side Actions */}
-          <div className="hidden lg:flex items-center gap-3">
-            <button className={cn(
-              "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
-              scrolled 
-                ? "hover:bg-primary/10 text-foreground" 
-                : "hover:bg-white/10 text-white"
-            )}>
+          <div className="hidden lg:flex items-center gap-6 relative z-10">
+            <button className="text-foreground/60 hover:text-primary transition-colors">
               <Search className="w-5 h-5" />
             </button>
-            <button className={cn(
-              "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 relative",
-              scrolled 
-                ? "hover:bg-primary/10 text-foreground" 
-                : "hover:bg-white/10 text-white"
-            )}>
+            <button className="text-foreground/60 hover:text-primary transition-colors relative">
               <ShoppingBag className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full text-[10px] text-white font-bold flex items-center justify-center">
-                0
-              </span>
+              <span className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full text-[8px] text-white font-bold flex items-center justify-center">0</span>
             </button>
-            <Button 
-              variant="hero" 
-              size="lg" 
+            <Button
+              size="lg"
               asChild
-              className={cn(
-                "ml-2 rounded-full shadow-glow-primary",
-                !scrolled && "bg-white text-foreground hover:bg-white/90"
-              )}
+              className="rounded-full bg-foreground text-background hover:bg-primary px-8 text-[10px] font-bold tracking-widest uppercase shadow-xl transition-all duration-500"
             >
-              <Link to="/products">Shop Now</Link>
+              <Link to="/products">COLLECTIONS</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className={cn(
-              "lg:hidden p-2 rounded-xl transition-colors",
-              scrolled 
-                ? "hover:bg-primary/10 text-foreground" 
-                : "hover:bg-white/10 text-white"
-            )}
+            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors relative z-10"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -206,27 +174,24 @@ export const Navbar = () => {
             {navItems.map((item) => (
               <div key={item.name}>
                 {item.subMenu ? (
-                  <>
-                    <Link
-                      to={item.path}
-                      onClick={() => setIsOpen(false)}
-                      className={cn(
-                        "block px-4 py-3 rounded-xl font-medium transition-colors",
-                        isHealthActive()
-                          ? "text-primary bg-primary/10"
-                          : "text-foreground hover:text-primary hover:bg-primary/5"
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                    <div className="pl-4 flex flex-col gap-1 mt-1">
+                  <div className="space-y-1">
+                    <div className={cn(
+                      "flex items-center gap-2 px-4 py-3 rounded-xl font-medium",
+                      (item.name === "Home" ? location.pathname === "/" || location.pathname === "/home2" : location.pathname.startsWith(item.path))
+                        ? "text-primary bg-primary/5"
+                        : "text-foreground"
+                    )}>
+                      {item.icon && <item.icon className="w-5 h-5" />}
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="pl-9 flex flex-col gap-1">
                       {item.subMenu.map((subItem) => (
                         <Link
                           key={subItem.name}
                           to={subItem.path}
                           onClick={() => setIsOpen(false)}
                           className={cn(
-                            "block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors",
+                            "block px-4 py-2 rounded-xl text-sm font-medium transition-colors",
                             isActive(subItem.path)
                               ? "text-primary bg-primary/10"
                               : "text-muted-foreground hover:text-primary hover:bg-primary/5"
@@ -236,19 +201,20 @@ export const Navbar = () => {
                         </Link>
                       ))}
                     </div>
-                  </>
+                  </div>
                 ) : (
                   <Link
                     to={item.path}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "block px-4 py-3 rounded-xl font-medium transition-colors",
+                      "flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-colors",
                       isActive(item.path)
                         ? "text-primary bg-primary/10"
                         : "text-foreground hover:text-primary hover:bg-primary/5"
                     )}
                   >
-                    {item.name}
+                    {item.icon && <item.icon className="w-5 h-5" />}
+                    <span>{item.name}</span>
                   </Link>
                 )}
               </div>

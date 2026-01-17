@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight, Clock } from "lucide-react";
 
+// Import images
+import heroDogForest from "@/assets/hero-dog-forest.jpg";
+
 const blogPosts = [
   {
     id: 1,
@@ -63,95 +66,111 @@ const blogPosts = [
 const Blog = () => {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-24 gradient-hero relative overflow-hidden">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-primary-soft rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-20 left-0 w-80 h-80 bg-secondary-soft rounded-full blur-3xl opacity-50" />
-        
+      {/* Editorial Header */}
+      <section className="pt-40 pb-24 bg-cream text-center relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-primary-soft text-primary-deep rounded-full text-sm font-semibold mb-6">
-              Blog & Insights
-            </span>
-            <h1 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Pet Health
-              <span className="block text-primary">Knowledge Hub</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Expert tips, latest research, and helpful guides to keep your furry friends happy and healthy.
-            </p>
+          <span className="text-primary font-bold tracking-[0.4em] text-xs uppercase mb-8 block">JOURNAL & INSIGHTS</span>
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-foreground leading-[0.9] tracking-tighter mb-12">
+            THE <br /><span className="italic">VITALITY BIBLE</span>
+          </h1>
+          <p className="text-xl text-foreground/60 max-w-xl mx-auto font-body">
+            Chronicles of canine longevity, nutritional excellence, and the art of professional pet parenting.
+          </p>
+        </div>
+      </section>
+
+      {/* Featured Article - Large Editorial */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="bg-cream p-8 md:p-16 rounded-[4rem] flex flex-col lg:flex-row gap-16 items-center shadow-large">
+            <div className="lg:w-1/2 aspect-video rounded-[3rem] overflow-hidden shadow-2xl">
+              <img src={heroDogForest} alt="Featured Article" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+            </div>
+            <div className="lg:w-1/2 space-y-8">
+              <span className="text-primary font-bold tracking-[0.3em] text-xs uppercase">Editor's Pick</span>
+              <h2 className="text-4xl md:text-6xl font-serif leading-tight">
+                The Art of <br /><span className="italic">Longevity</span>
+              </h2>
+              <p className="text-xl text-foreground/60 leading-relaxed font-body">
+                Explore our comprehensive guide on supporting your senior pet's vitality through preventative natural supplementation.
+              </p>
+              <Button size="xl" variant="link" className="p-0 text-xl font-serif italic text-primary group">
+                Read the full essay <ArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-2 transition-transform" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="py-24">
+      {/* Article Grid */}
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-12">
             {blogPosts.map((post) => (
-              <article
-                key={post.id}
-                className="group bg-card rounded-3xl shadow-soft hover:shadow-large transition-all duration-300 hover:-translate-y-2 overflow-hidden"
-              >
-                <div className={`${post.color} h-48 flex items-center justify-center`}>
-                  <span className="font-display text-6xl text-foreground/10">
-                    {post.id.toString().padStart(2, '0')}
-                  </span>
+              <article key={post.id} className="group relative flex flex-col space-y-8">
+                <div className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-cream/30 border border-border/10 shadow-soft group-hover:shadow-large transition-all duration-700">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-9xl font-serif text-primary/5 group-hover:text-primary/10 transition-colors">0{post.id}</span>
+                  </div>
+                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
-                <div className="p-6">
-                  <span className="inline-block px-3 py-1 bg-muted rounded-full text-xs font-semibold text-muted-foreground mb-3">
-                    {post.category}
-                  </span>
-                  <h3 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center text-[10px] font-bold tracking-[0.2em] text-foreground/40 uppercase">
+                    <span>{post.category}</span>
+                    <span>{post.date}</span>
+                  </div>
+                  <h3 className="text-3xl font-serif group-hover:text-primary transition-colors leading-tight">
                     {post.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
+                  <p className="text-sm text-foreground/60 leading-relaxed font-body line-clamp-2">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      <span>{post.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      <span>{post.readTime}</span>
-                    </div>
+                  <div className="pt-4">
+                    <Button variant="link" className="p-0 font-serif italic group-hover:text-primary transition-colors">
+                      Keep Reading
+                    </Button>
                   </div>
                 </div>
               </article>
             ))}
           </div>
 
-          {/* Load More */}
-          <div className="text-center mt-16">
-            <Button variant="outline" size="lg">
-              Load More Articles
+          {/* Load More Stylized */}
+          <div className="text-center mt-32">
+            <div className="w-px h-24 bg-border/30 mx-auto mb-8" />
+            <Button size="xl" variant="outline" className="rounded-full border-2 border-foreground hover:bg-foreground hover:text-white px-16">
+              LOAD MORE ESSAYS
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-24 bg-muted/30">
+      {/* Editorial Newsletter */}
+      <section className="py-40 bg-cream-deep/20 border-y border-border/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-              Stay Updated
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Subscribe to our newsletter for the latest pet health tips and exclusive offers.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button variant="hero" size="lg">
-                Subscribe
-              </Button>
-            </form>
+          <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <div className="space-y-8">
+              <h2 className="text-5xl md:text-7xl font-serif italic leading-tight">Vitality, <br />Delivered.</h2>
+              <p className="text-xl text-foreground/60 max-w-md font-body">
+                Subscribe to the Vitality Bible for monthly insights, scientific updates, and exclusive access to new formulations.
+              </p>
+            </div>
+            <div className="bg-white p-10 rounded-[3rem] shadow-large border border-border/10">
+              <form className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 ml-1">Your Email</label>
+                  <input
+                    type="email"
+                    placeholder="marie@paris.com"
+                    className="w-full bg-cream/30 border-b-2 border-border/20 px-4 py-4 focus:outline-none focus:border-primary transition-colors font-body"
+                  />
+                </div>
+                <Button size="xl" className="w-full rounded-full bg-foreground text-background hover:bg-primary transition-all duration-500 py-8 text-lg font-medium">
+                  JOIN THE JOURNEY
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
