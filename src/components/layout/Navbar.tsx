@@ -14,6 +14,7 @@ const homeSubMenu = [
   { name: "Editorial Style", path: "/" },
   { name: "Lively Pastel", path: "/home2" },
   { name: "Perfect Version", path: "/home3" },
+  { name: "Manor Luxury", path: "/home4" },
 ];
 
 const navItems = [
