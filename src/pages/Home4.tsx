@@ -100,6 +100,36 @@ const comparisonData = [
     { feature: "Sustainability", us: "Glass & Recyclable", them: "Single-use Plastic" },
 ];
 
+const testimonials = [
+    {
+        name: "Alexandra M.",
+        role: "Verified Owner",
+        title: "Visible Transformation",
+        text: "The difference in Charlie's coat is night and day. It's not just softer; he radiates health. The premium quality is evident in every scoop.",
+        rating: 5,
+        image: testimonialDog1,
+        product: "Skin & Coat Formula",
+    },
+    {
+        name: "Marcus K.",
+        role: "Trail Runner",
+        title: "Movement Restored",
+        text: "After 3 weeks on Joint Saver, he's back to leading our morning runs. It's given us our adventures back.",
+        rating: 5,
+        image: testimonialDog2,
+        product: "Joint Saver",
+    },
+    {
+        name: "Elena G.",
+        role: "Veterinary Technician",
+        title: "Professional Grade",
+        text: "I recommend PetYu because I trust the science. No fillers, just effective, high-quality nutrition.",
+        rating: 5,
+        image: testimonialDog3,
+        product: "Digest Ultra Plus",
+    },
+];
+
 const Home4 = () => {
     const [scrolled, setScrolled] = useState(false);
 
